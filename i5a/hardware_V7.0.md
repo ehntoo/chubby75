@@ -36,6 +36,11 @@ FPGA power is supplied by 3 buck converters. They are compatible with a TI TLV62
 | U37            |1.0V  | Vref | Reference voltage         |
 | U38            |3.3V  | Vccio| I/O Driver supply voltage and 3.3V for the rest of the board |
 
+| U12            | 1.1V |      | |
+| U8             | 3.3V |      | |
+| U15            | 1.2V |      | |
+| U1             | 2.5V |      | |
+
 
 JTAG
 ----
@@ -53,7 +58,7 @@ JTAG is available on a 4-pin header next to the FPGA (U?). VCC/GND are available
 | J?  | *GND*    |
 
 
-SPI Flash (U?)
+SPI Flash (U7)
 ---------------
 
 | Flash Pin | FPGA Pin | Function | Notes |
@@ -83,6 +88,7 @@ LED, Button
 -----------
 
 # TODO - confirm led/button pins
+LED actually may be on P11? hard to decode exactly.
 There is a general purpose, FPGA controlled LED (DATA_LED-) at T6, active low (FPGA pin should be set to open drain).
 
 Additionally, there is a button (R7, KEY+).
@@ -90,71 +96,69 @@ Additionally, there is a button (R7, KEY+).
 PAD N16 -> unpopulated R26
 
 
-SDRAM U?
+SDRAM U10
 ---------
 
 The SDRAM is organized as 2Mx32.
-# TODO - verify SDRAM pins - at least several will be different
 
 | SDRAM Signal | FPGA Pin for U29 | Notes |
 |--------------|------------------|-------|
-| DQ0          | B2               |
-| DQ1          | A2               |
-| DQ2          | C3               |
-| DQ3          | A3               |
-| DQ4          | B3               |
-| DQ5          | A4               |
-| DQ6          | B4               |
-| DQ7          | A5               |
-| DQ8          | E7               |
-| DQ9          | C6               |
-| DQ10         | D7               |
-| DQ11         | D6               |
-| DQ12         | E6               |
-| DQ13         | D5               |
-| DQ14         | C5               |
-| DQ15         | E5               |
-| DQ16         | A11              |
-| DQ17         | B11              |
-| DQ18         | B12              |
-| DQ19         | A13              |
-| DQ20         | B13              |
-| DQ21         | A14              |
-| DQ22         | B14              |
-| DQ23         | D14              |
-| DQ24         | D13              |
-| DQ25         | E11              |
-| DQ26         | C13              |
-| DQ27         | D11              |
-| DQ28         | C12              |
-| DQ29         | E10              |
-| DQ30         | C11              |
-| DQ31         | D10              |
-| BA0          | B7               |
-| BA1          | A8               |
+| DQ0          | B13              |
+| DQ1          | B11              |
+| DQ2          | A11              |
+| DQ3          | B10              |
+| DQ4          | B9               |
+| DQ5          | B8               |
+| DQ6          | A8               |
+| DQ7          | E11              |
+| DQ8          | B6               |
+| DQ9          | A5               |
+| DQ10         | B5               |
+| DQ11         | A4               |
+| DQ12         | B4               |
+| DQ13         | B3               |
+| DQ14         | A2               |
+| DQ15         | B2               |
+| DQ16         | A6               |
+| DQ17         | C11              |
+| DQ18         | C10              |
+| DQ19         | C9               |
+| DQ20         | D8               |
+| DQ21         | D6               |
+| DQ22         | E8               |
+| DQ23         | E6               |
+| DQ24         | E2               |
+| DQ25         | E4               |
+| DQ26         | D5               |
+| DQ27         | E5               |
+| DQ28         | C4               |
+| DQ29         | D4               |
+| DQ30         | C3               |
+| DQ31         | D3               |
+| BA0          | A7               |
+| BA1          |                  | Wired to GND through R49
 | A0           | A9               |
-| A1           | B9               |
-| A2           | B10              |
-| A3           | C10              |
-| A4           | D9               |
-| A5           | C9               |
-| A6           | E9               |
-| A7           | D8               |
-| A8           | E8               |
-| A9           | C7               |
-| A10/AP       | B8               |
-| DQM0         | _na_             | Wired to GND
-| DQM1         | _na_             | Wired to GND
-| DQM2         | _na_             | Wired to GND
-| DQM3         | _na_             | Wired to GND
-| WE#          | B5               |
-| CAS#         | A6               |
-| RAS#         | B6               |
-| CS#          | _na_             | Wired to GND
-| NC           | A7               |
-| CKE          | _na_             | Wired to 3.3V
-| CLK          | C8               |
-
+| A1           | E10              |
+| A2           | B12              |
+| A3           | D13              |
+| A4           | C12              |
+| A5           | D11              |
+| A6           | D10              |
+| A7           | E9               |
+| A8           | D9               |
+| A9           | B7               |
+| A10/AP       | C8               |
+| DQM0         |                  | Wired to GND
+| DQM1         |                  | Wired to GND
+| DQM2         |                  | Wired to GND
+| DQM3         |                  | Wired to GND
+| WE#          | C7               |
+| CAS#         | E7               |
+| RAS#         | D7               |
+| CS#          |                  | Wired to GND
+| NC           |                  |
+| CKE          |                  | Wired to 3.3V
+| CLK          | C6               |
 
 Gigabit PHYs (U11 & U13)
 ------------------------
@@ -215,8 +219,8 @@ is the top-right corner of the connector, pin 2 is bottom-right, pin 49 top-left
 
 | Shared | Buffer      | FPGA Pin | JP600 Pin | JP600 Pin | FPGA Pin | Buffer      | Shared |
 |--------|-------------|----------|-----------|-----------|----------|-------------|--------|
-| **GND**| **GND**     | **GND**  | **1**     | **2**     | ??       | **XX**      | **XX** |
-| **GND**| **GND**     | **GND**  | **3**     | **4**     | ??       | **XX**      | **XX** |
+| **GND**| **GND**     | **GND**  | **1**     | **2**     |          | **5V**      | **5V** |
+| **GND**| **GND**     | **GND**  | **3**     | **4**     |          | **5V**      | **5V** |
 | **GND**| **GND**     | **GND**  | **5**     | **6**     | F15      | U5, chan 0  | JP2.6  |
 |        | U6, chan 0  | M7       | **7**     | **8**     | R6       | U6, chan 1  |        |
 |        | U6, chan 2  | T6       | **9**     | **10**    | M9       | U6, chan 3  |        |
@@ -238,8 +242,8 @@ is the top-right corner of the connector, pin 2 is bottom-right, pin 49 top-left
 | JP2.41 | U5, chan 3  | K1       | **41**    | **42**    | L2       | U5, chan 4  | JP2.42 |
 | JP2.43 | U5, chan 5  | J14      | **43**    | **44**    | B16      | U5, chan 6  | JP2.44 |
 | JP2.45 | U5, chan 7  | F12      | **45**    | **46**    | **GND**  | **GND**     | **GND**|
-| **??** | **??**      | **??**   | **47**    | **48**    | **GND**  | **GND**     | **GND**|
-| **??** | **??**      | **??**   | **49**    | **50**    | **GND**  | **GND**     | **GND**|
+| **5V** | **5V**      |          | **47**    | **48**    | **GND**  | **GND**     | **GND**|
+| **5V** | **5V**      |          | **49**    | **50**    | **GND**  | **GND**     | **GND**|
 
 
 Connector JP2
@@ -250,7 +254,7 @@ is the bottom-left corner of the connector, pin 2 is upper-left, pin 49 bottom_r
 | Shared | Buffer      | FPGA Pin | JP601 Pin | JP601 Pin | FPGA Pin | Buffer      | Shared |
 |--------|-------------|----------|-----------|-----------|----------|-------------|--------|
 | **GND**| **GND**     | **GND**  | **1**     | **2**     |          | **5V**      | **5V** |
-| **GND**| **GND**     | **GND**  | **3**     | **4**     | ??       | **XX**      | **XX** |
+| **GND**| **GND**     | **GND**  | **3**     | **4**     |          | **5V**      | **5V** |
 | **GND**| **GND**     | **GND**  | **5**     | **6**     | F15      | U16, chan 0 | JP1.6  |
 |        | U20, chan 0 | E14      | **7**     | **8**     | A13      | U20, chan 1 |        |
 |        | U20, chan 2 | B14      | **9**     | **10**    | E13      | U20, chan 3 |        |
@@ -272,7 +276,7 @@ is the bottom-left corner of the connector, pin 2 is upper-left, pin 49 bottom_r
 | JP1.41 | U16, chan 3 | K1       | **41**    | **42**    | L2       | U16, chan 4 | JP1.42 |
 | JP1.43 | U16, chan 5 | J14      | **43**    | **44**    | B16      | U16, chan 6 | JP1.44 |
 | JP1.45 | U16, chan 7 | F12      | **45**    | **46**    | **GND**  | **GND**     | **GND**|
-| **??** | **??**      | ??       | **47**    | **48**    | **GND**  | **GND**     | **GND**|
+| **5V** | **5V**      |          | **47**    | **48**    | **GND**  | **GND**     | **GND**|
 | **5V** | **5V**      |          | **49**    | **50**    | **GND**  | **GND**     | **GND**|
 
 Connector J17
